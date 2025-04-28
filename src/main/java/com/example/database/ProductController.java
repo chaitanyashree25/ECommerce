@@ -28,6 +28,11 @@ public class ProductController {
            productService.addProduct(product);
     }
 
+    @PostMapping("/products/bulk")
+    public void addProducts(@RequestBody List<Product> products){
+        productService.addProducts(products);
+    }
+
     @GetMapping("/products")
     public List<Product> getAllProducts(){
        return productService.getAllProducts();
