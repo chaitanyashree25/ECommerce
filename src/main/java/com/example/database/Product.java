@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.antlr.v4.runtime.misc.NotNull;
+
+import java.util.NoSuchElementException;
 
 @Entity
 public class Product {
@@ -11,7 +14,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private String name;
+
     private double price;
     private String description;
 
@@ -31,7 +37,11 @@ public class Product {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        if(id <= 0){
+            throw new NoSuchElementException("The price cannot be 0 or less than 0");
+        }else {
+            this.id = id;
+        }
     }
 
     public String getName() {

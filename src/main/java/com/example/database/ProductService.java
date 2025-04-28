@@ -1,5 +1,6 @@
 package com.example.database;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,20 @@ public class ProductService {
 
     public Product getProductById(Long id){
       return productRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Product not found"));
+    }
+
+    public Product updateProduct(Long id, Product updatedProduct) {
+        // First, fetch the existing product by id
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Product not found"));
+
+        // Update the fields with new values
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setDescription(updatedProduct.getDescription());
+
+        // Save the updated product back to the database
+        return productRepository.save(existingProduct);
     }
 
     public void deleteProduct(Long id){

@@ -1,5 +1,6 @@
 package com.example.database;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,11 @@ import java.util.NoSuchElementException;
 public class ProductController {
 
     ProductService productService;
+
+    @PutMapping("/products/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        return productService.updateProduct(id, updatedProduct);
+    }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNotFoundException(NoSuchElementException ex) {
